@@ -1,0 +1,531 @@
+package exercise1.entities;
+
+import java.time.LocalDate;
+import java.util.*;
+
+abstract class HangHoa {
+
+  protected String maHang;
+  protected String tenHang;
+  protected int soLuong;
+  protected double donGia;
+
+  public HangHoa(String maHang, String tenHang, int soLuong, double donGia) {
+    this.maHang = maHang;
+    this.tenHang = tenHang;
+    this.soLuong = soLuong;
+    this.donGia = donGia;
+  }
+
+  public String getMaHang() {
+    return maHang;
+  }
+
+  public void setMaHang(String maHang) {
+    this.maHang = maHang;
+  }
+
+  public String getTenHang() {
+    return tenHang;
+  }
+
+  public void setTenHang(String tenHang) {
+    this.tenHang = tenHang;
+  }
+
+  public int getSoLuong() {
+    return soLuong;
+  }
+
+  public void setSoLuong(int soLuong) {
+    this.soLuong = soLuong;
+  }
+
+  public double getDonGia() {
+    return donGia;
+  }
+
+  public void setDonGia(double donGia) {
+    this.donGia = donGia;
+  }
+
+  public abstract void nhapHangHoa(Scanner sc);
+
+  public abstract void xuatHangHoa(Scanner sc);
+
+  public abstract void inThongTin();
+}
+
+class KinhCan extends HangHoa {
+
+  public KinhCan(String maHang, String tenHang, int soLuong, double donGia) {
+    super(maHang, tenHang, soLuong, donGia);
+  }
+
+  @Override
+  public void nhapHangHoa(Scanner sc) {
+    System.out.print("Nhap ma hang: ");
+    maHang = sc.nextLine();
+    System.out.print("Nhap ten hang: ");
+    tenHang = sc.nextLine();
+    System.out.print("Nhap so luong: ");
+    soLuong = Integer.parseInt(sc.nextLine());
+    System.out.print("Nhap don gia: ");
+    donGia = Double.parseDouble(sc.nextLine());
+    System.out.println("Nhap kho hang thanh cong!");
+  }
+
+  @Override
+  public void xuatHangHoa(Scanner sc) {
+    System.out.print("Nhap so luong kinh can can xuat kho: ");
+    int qty = Integer.parseInt(sc.nextLine());
+    if (soLuong >= qty) {
+      soLuong -= qty;
+      System.out.println(qty + " kinh can da xuat khoi kho.");
+    } else {
+      System.out.println("So luong kinh can trong kho khong du!");
+    }
+  }
+
+  @Override
+  public void inThongTin() {
+    System.out.printf(
+      "%-10s %-20s %-10d %-10.0f\n",
+      maHang,
+      tenHang,
+      soLuong,
+      donGia
+    );
+  }
+}
+
+class KinhMat extends HangHoa {
+
+  public KinhMat(String maHang, String tenHang, int soLuong, double donGia) {
+    super(maHang, tenHang, soLuong, donGia);
+  }
+
+  @Override
+  public void nhapHangHoa(Scanner sc) {
+    System.out.print("Nhap ma hang: ");
+    maHang = sc.nextLine();
+    System.out.print("Nhap ten hang: ");
+    tenHang = sc.nextLine();
+    System.out.print("Nhap so luong: ");
+    soLuong = Integer.parseInt(sc.nextLine());
+    System.out.print("Nhap don gia: ");
+    donGia = Double.parseDouble(sc.nextLine());
+    System.out.println("Nhap kho hang thanh cong!");
+  }
+
+  @Override
+  public void xuatHangHoa(Scanner sc) {
+    System.out.print("Nhap so luong kinh mat can xuat kho: ");
+    int qty = Integer.parseInt(sc.nextLine());
+    if (soLuong >= qty) {
+      soLuong -= qty;
+      System.out.println(qty + " kinh mat da xuat khoi kho.");
+    } else {
+      System.out.println("So luong kinh mat trong kho khong du!");
+    }
+  }
+
+  @Override
+  public void inThongTin() {
+    System.out.printf(
+      "%-10s %-20s %-10d %-10.0f\n",
+      maHang,
+      tenHang,
+      soLuong,
+      donGia
+    );
+  }
+}
+
+class KinhApTrong extends HangHoa {
+
+  public KinhApTrong(
+    String maHang,
+    String tenHang,
+    int soLuong,
+    double donGia
+  ) {
+    super(maHang, tenHang, soLuong, donGia);
+  }
+
+  @Override
+  public void nhapHangHoa(Scanner sc) {
+    System.out.print("Nhap ma hang: ");
+    maHang = sc.nextLine();
+    System.out.print("Nhap ten hang: ");
+    tenHang = sc.nextLine();
+    System.out.print("Nhap so luong: ");
+    soLuong = Integer.parseInt(sc.nextLine());
+    System.out.print("Nhap don gia: ");
+    donGia = Double.parseDouble(sc.nextLine());
+    System.out.println("Nhap kho hang thanh cong!");
+  }
+
+  @Override
+  public void xuatHangHoa(Scanner sc) {
+    System.out.print("Nhap so luong kinh ap trong can xuat kho: ");
+    int qty = Integer.parseInt(sc.nextLine());
+    if (soLuong >= qty) {
+      soLuong -= qty;
+      System.out.println(qty + " kinh ap trong da xuat khoi kho.");
+    } else {
+      System.out.println("So luong kinh ap trong trong kho khong du!");
+    }
+  }
+
+  @Override
+  public void inThongTin() {
+    System.out.printf(
+      "%-10s %-20s %-10d %-10.0f\n",
+      maHang,
+      tenHang,
+      soLuong,
+      donGia
+    );
+  }
+}
+
+class PhieuNhap {
+
+  private LocalDate ngayNhap;
+  private List<HangHoa> hangHoaList;
+
+  public PhieuNhap() {
+    ngayNhap = LocalDate.now();
+    hangHoaList = new ArrayList<>();
+  }
+
+  public void nhapHangHoa(Scanner sc) {
+    System.out.print("Nhap so mat hang can nhap kho: ");
+    int qty = Integer.parseInt(sc.nextLine());
+    for (int i = 0; i < qty; i++) {
+      System.out.println("Chon loai mat hang: ");
+      System.out.println("1. Kinh can");
+      System.out.println("2. Kinh mat");
+      System.out.println("3. Kinh ap trong");
+      System.out.print("Vui long chon loai : ");
+      int choice = Integer.parseInt(sc.nextLine());
+      System.out.println("Nhap thong tin mat hang: ");
+      switch (choice) {
+        case 1:
+          HangHoa kinhCan = new KinhCan("", "", 0, 0);
+          kinhCan.nhapHangHoa(sc);
+          hangHoaList.add(kinhCan);
+          break;
+        case 2:
+          HangHoa kinhMat = new KinhMat("", "", 0, 0);
+          kinhMat.nhapHangHoa(sc);
+          hangHoaList.add(kinhMat);
+          break;
+        case 3:
+          HangHoa kinhApTrong = new KinhApTrong("", "", 0, 0);
+          kinhApTrong.nhapHangHoa(sc);
+          hangHoaList.add(kinhApTrong);
+          break;
+        default:
+          System.out.println("Vui long chon tu 1 den 3.");
+          break;
+      }
+    }
+  }
+
+  public void inPhieuNhap() {
+    System.out.println("====== PHIEU NHAP KHO NGAY " + ngayNhap + " ======");
+    System.out.printf(
+      "%-10s %-20s %-10s %-10s\n",
+      "Loai hang",
+      "Ma hang",
+      "Ten hang",
+      "So luong"
+    );
+    hangHoaList.forEach(hangHoa -> {
+      System.out.printf(
+        "%-10s %-20s %-10s %-10d\n",
+        hangHoa.getClass().getSimpleName(),
+        hangHoa.getMaHang(),
+        hangHoa.getTenHang(),
+        hangHoa.getSoLuong()
+      );
+    });
+  }
+}
+
+class PhieuXuat {
+
+  private LocalDate ngayXuat;
+  private List<HangHoa> hangHoaList;
+
+  public PhieuXuat() {
+    ngayXuat = LocalDate.now();
+    hangHoaList = new ArrayList<>();
+  }
+
+  public void xuatHangHoa(Scanner sc) {
+    System.out.print("Nhap so mat hang can xuat kho: ");
+    int qty = Integer.parseInt(sc.nextLine());
+    for (int i = 0; i < qty; i++) {
+      System.out.print("Nhap ma hang hoa can xuat kho: ");
+      String maHang = sc.nextLine();
+      boolean timThay = false;
+      for (int j = 0; j < hangHoaList.size(); j++) {
+        if (hangHoaList.get(j).getMaHang().equals(maHang)) {
+          hangHoaList.get(j).xuatHangHoa(sc);
+          timThay = true;
+          break;
+        }
+      }
+      if (!timThay) {
+        System.out.println("Khong tim thay hang hoa co ma " + maHang);
+      }
+    }
+  }
+
+  public void inPhieuXuat() {
+    System.out.println("====== PHIEU XUAT KHO NGAY " + ngayXuat + " ======");
+    System.out.printf(
+      "%-10s %-20s %-10s %10s %10s\n",
+      "Loai hang",
+      "Ma hang",
+      "Ten hang",
+      "So luong",
+      "Don gia"
+    );
+    double tongTien = 0;
+    for (int i = 0; i < hangHoaList.size(); i++) {
+      HangHoa hangHoa = hangHoaList.get(i);
+      System.out.printf(
+        "%-10s %-20s %-10s %10d %,10.0f\n",
+        hangHoa.getClass().getSimpleName(),
+        hangHoa.getMaHang(),
+        hangHoa.getTenHang(),
+        1,
+        hangHoa.getDonGia()
+      );
+
+      tongTien += hangHoa.getDonGia();
+    }
+
+    System.out.printf("TONG TIEN: %,.0f\n", tongTien);
+  }
+}
+
+class Main {
+
+  static String[][] danhSach = {
+    { "KM001", "Kinh can", "100", "250000" },
+    { "KM002", "Kinh mat", "150", "300000" },
+    { "KM003", "Kinh ap trong", "50", "500000" },
+  };
+
+  static void nhapKho(Scanner sc) {
+    System.out.print("Nhap ma hang: ");
+    String maHang = sc.nextLine();
+    System.out.print("Nhap ten hang: ");
+    String tenHang = sc.nextLine();
+    System.out.print("Nhap so luong: ");
+    String soLuong = sc.nextLine();
+    System.out.print("Nhap don gia: ");
+    String donGia = sc.nextLine();
+    String[] hangHoa = { maHang, tenHang, soLuong, donGia };
+    danhSach = Arrays.copyOf(danhSach, danhSach.length + 1);
+    danhSach[danhSach.length - 1] = hangHoa;
+    System.out.println("Nhap kho hang thanh cong!");
+  }
+
+  static void hienThiDanhSach() {
+    System.out.printf(
+      "%-10s %-20s %-10s %-10s\n",
+      "Ma hang",
+      "Ten hang",
+      "So luong",
+      "Đon gia"
+    );
+    for (int i = 0; i < danhSach.length; i++) {
+      System.out.printf(
+        "%-10s %-20s %-10s %-10s\n",
+        danhSach[i][0],
+        danhSach[i][1],
+        danhSach[i][2],
+        danhSach[i][3]
+      );
+    }
+  }
+
+  static void capNhat(Scanner sc) {
+    System.out.print("Nhap ma hang can cap nhat: ");
+    String maHang = sc.nextLine();
+    boolean timThay = false;
+    for (int i = 0; i < danhSach.length; i++) {
+      if (danhSach[i][0].equals(maHang)) {
+        System.out.println("1. Cap nhat ten hang");
+        System.out.println("2. Cap nhat so luong");
+        System.out.println("3. Cap nhat don gia");
+        System.out.print("Vui long chon thong tin can nhap : ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        switch (choice) {
+          case 1:
+            System.out.print("Nhap ten hang moi: ");
+            danhSach[i][1] = sc.nextLine();
+            break;
+          case 2:
+            System.out.print("Nhap so luong moi: ");
+            danhSach[i][2] = sc.nextLine();
+            break;
+          case 3:
+            System.out.print("Nhap don gia moi: ");
+            danhSach[i][3] = sc.nextLine();
+            break;
+          default:
+            System.out.println("Vui long nhap tu 1 den 3.");
+        }
+        timThay = true;
+        System.out.println("Cap nhat thong tin don hang thanh cong!");
+        break;
+      }
+    }
+    if (!timThay) {
+      System.out.println("Khong tim thay hang co ma " + maHang);
+    }
+  }
+
+  static void sapXep(Scanner sc) {
+    System.out.println("1. Sap xep theo ten hang (A-Z)");
+    System.out.println("2. Sap xep theo ten hang (Z-A)");
+    System.out.println("3. Sap xep theo so luong hang(tang dan)");
+    System.out.println("4. Sap xep theo so luong hang (giam dan)");
+    System.out.print("Vui long chon phuong thuc sap xep: ");
+    int choice = sc.nextInt();
+    sc.nextLine();
+    switch (choice) {
+      case 1:
+        Arrays.sort(danhSach, (a, b) -> a[1].compareTo(b[1]));
+        System.out.println("Sap xep thanh cong!");
+        break;
+      case 2:
+        Arrays.sort(danhSach, (a, b) -> b[1].compareTo(a[1]));
+        System.out.println("Sap xep thanh cong!!");
+        break;
+      case 3:
+        Arrays.sort(
+          danhSach,
+          (a, b) -> Integer.parseInt(a[2]) - Integer.parseInt(b[2])
+        );
+        System.out.println("Sap xep thanh cong!!");
+        break;
+      case 4:
+        Arrays.sort(
+          danhSach,
+          (a, b) -> Integer.parseInt(b[2]) - Integer.parseInt(a[2])
+        );
+        System.out.println("Sap xep thanh cong!!");
+        break;
+      default:
+        System.out.println("Vui long nhap tu 1 den 4.");
+    }
+  }
+
+  static void timKiemTheoTen(Scanner sc) {
+    System.out.print("Nhap ten hang can tim kiem: ");
+    String tenHang = sc.nextLine();
+    boolean timThay = false;
+    System.out.printf(
+      "%-10s %-20s %-10s %-10s\n",
+      "Ma hang",
+      "Ten hang",
+      "So luong",
+      "Don gia"
+    );
+    for (int i = 0; i < danhSach.length; i++) {
+      if (danhSach[i][1].equalsIgnoreCase(tenHang)) {
+        System.out.printf(
+          "%-10s %-20s %-10s %-10s\n",
+          danhSach[i][0],
+          danhSach[i][1],
+          danhSach[i][2],
+          danhSach[i][3]
+        );
+        timThay = true;
+      }
+    }
+    if (!timThay) {
+      System.out.println("Khong tim thay hang hoa co ten " + tenHang);
+    }
+  }
+
+  static void xuatHang(Scanner sc) {
+    System.out.print("Nhap ma hang hoa can xuat: ");
+    String maHang = sc.nextLine();
+    boolean timThay = false;
+    for (int i = 0; i < danhSach.length; i++) {
+      if (danhSach[i][0].equals(maHang)) {
+        System.out.println("Hang hoa " + danhSach[i][1] + " da xuat khoi kho.");
+        danhSach[i][2] = String.valueOf(Integer.parseInt(danhSach[i][2]) - 1);
+        timThay = true;
+        break;
+      }
+    }
+    if (!timThay) {
+      System.out.println("Khong tim thay hang hoa co ma " + maHang);
+    }
+  }
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+
+    PhieuNhap phieuNhap = new PhieuNhap();
+
+    PhieuXuat phieuXuat = new PhieuXuat();
+    while (true) {
+      System.out.println("====== MENU ======");
+      System.out.println("1. Nhap kho");
+      System.out.println("2. Xuat kho");
+      System.out.println("3. Hien thi danh sach hang hoa");
+      System.out.println("4. In phieu");
+      System.out.println("5. Cap nhat thong tin hang hoa");
+      System.out.println("6. Sap xep hang hoa");
+      System.out.println("7. Tim kiem hang hoa theo ten");
+      System.out.println("0. Thoat chuong trinh");
+      System.out.print("Nhap lua chon cua ban: ");
+      int choice = Integer.parseInt(sc.nextLine());
+
+      switch (choice) {
+        case 1:
+          nhapKho(sc);
+          break;
+        case 2:
+          xuatHang(sc);
+          break;
+        case 3:
+          hienThiDanhSach();
+          break;
+        case 4:
+          System.out.println("====== IN PHIEU ======");
+          phieuNhap.inPhieuNhap();
+          System.out.println();
+          phieuXuat.inPhieuXuat();
+          break;
+        case 5:
+          capNhat(sc);
+          break;
+        case 6:
+          sapXep(sc);
+          break;
+        case 7:
+          timKiemTheoTen(sc);
+          break;
+        case 0:
+          System.out.println("Cam on da su dung chuong trinh!");
+          return;
+        default:
+          System.out.println("Vui long chon tu 1 den 6.");
+          break;
+      }
+    }
+  }
+}
