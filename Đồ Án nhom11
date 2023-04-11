@@ -1,3 +1,8 @@
+
+//mahang KM001,TENHANG Kinh can...
+//nhap kho chức nang 1
+//xuất + in chuacws nang 2 
+//......
 package exercise1.entities;
 
 import java.time.LocalDate;
